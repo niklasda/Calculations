@@ -24,7 +24,7 @@ public class GetTaxCarTests
     [DataRow("2013-03-26T14:25:00", 0)]  // Tue
     [DataRow("2013-03-28T14:07:27", 0)]  // Thu (Holiday)
     [DataRow("2013-07-26T14:07:27", 0)]  // Fri (July)
-    public void TestSingleCarDateCarTax(string dateString, int expectedTax)
+    public void TestSingleDateCarTax(string dateString, int expectedTax)
     {
         var ctc = new TaxCalculator();
 
@@ -41,19 +41,20 @@ public class GetTaxCarTests
 
     [DataTestMethod]
     [DataRow(new[] { "2013-02-08T06:20:27" }, 8)] // Fri
-    [DataRow(new[] { "2013-02-08T14:35:00" }, 8)] // 
-    [DataRow(new[] { "2013-02-08T17:49:00" }, 13)] // 
-    [DataRow(new[] { "2013-02-08T18:29:00" }, 8)] // 
-    [DataRow(new[] { "2013-02-08T06:20:27", "2013-02-08T14:35:00" }, 8)] // 
-    [DataRow(new[] { "2013-02-08T17:49:00", "2013-02-08T18:29:00" }, 13)]  // 
-    public void TestMultiDateCarTax(string[] dateStrings, int expectedTax)
+    [DataRow(new[] { "2013-02-08T14:35:00" }, 8)] 
+    [DataRow(new[] { "2013-02-08T17:49:00" }, 13)] 
+    [DataRow(new[] { "2013-02-08T18:29:00" }, 8)] 
+    [DataRow(new[] { "2013-02-08T06:20:27", "2013-02-08T14:35:00" }, 8 + 8)]  
+    [DataRow(new[] { "2013-02-08T17:49:00", "2013-02-08T18:29:00" }, 13)]   
+    public void TestMultiHourCarTax(string[] dateStrings, int expectedTax)
     {
         var ctc = new TaxCalculator();
 
-        IEnumerable<DateTime> dates = dateStrings.Select(ds => DateTime.Parse(ds));
+        IEnumerable<DateTime> dates = dateStrings.Select(DateTime.Parse);
 
         var tax = ctc.GetTax(new Car(), dates.ToArray());
         Assert.AreEqual(expectedTax, tax);
     }
+
 }
 

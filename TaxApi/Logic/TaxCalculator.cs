@@ -21,7 +21,8 @@ public class TaxCalculator
             int nextFee = GetTollFee(date, vehicle);
             int tempFee = GetTollFee(intervalStart, vehicle);
 
-            long diffInMilliseconds = date.Millisecond - intervalStart.Millisecond;
+            double milliseconds = (date - intervalStart).TotalMilliseconds;
+            long diffInMilliseconds = (long)milliseconds;
             long minutes = diffInMilliseconds / 1000 / 60;
 
             if (minutes <= 60)
