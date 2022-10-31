@@ -13,7 +13,7 @@ public class GetTaxBugTests
     [DataRow("2013-01-15T12:20:00", 8)] 
     [DataRow("2013-01-15T13:20:00", 8)] 
     [DataRow("2013-01-15T14:20:00", 8)] 
-    public void TestSingleCarDateCarTaxRule5(string dateString, int expectedTax)
+    public void TestSingleDateCarTaxRule5(string dateString, int expectedTax)
     {
         // logic for 08:30–14:59 => SEK 8 is wrong
         var ctc = new TaxCalculator();

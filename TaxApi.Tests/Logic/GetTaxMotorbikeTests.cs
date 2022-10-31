@@ -39,5 +39,20 @@ public class GetTaxMotorbikeTests
             Assert.Fail("Bad test data");
         }
     }
-}
 
+    [DataTestMethod]
+    [DataRow(new[] { "2013-02-08T06:20:27" }, 0)] // Fri
+    [DataRow(new[] { "2013-02-08T14:35:00" }, 0)]
+    [DataRow(new[] { "2013-02-08T17:49:00" }, 0)]
+    [DataRow(new[] { "2013-02-08T18:29:00" }, 0)]
+    [DataRow(new[] { "2013-02-08T06:20:27", "2013-02-08T14:35:00" }, 0)]
+    [DataRow(new[] { "2013-02-08T17:49:00", "2013-02-08T18:29:00" }, 0)]
+    public void TestMultiHourMotorbikeTax(string[] dateStrings, int expectedTax)
+    {
+        var ctc = new TaxCalculator();
+
+        IEnumerable<DateTime> dates = dateStrings.Select(DateTime.Parse);
+        var tax = ctc.GetTax(new Motorbike(), dates.ToArray());
+        Assert.AreEqual(expectedTax, tax);
+    }
+}
