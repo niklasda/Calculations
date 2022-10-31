@@ -55,6 +55,4 @@ public class GetTaxCarTests
         var tax = ctc.GetTax(new Car(), dates.ToArray());
         Assert.AreEqual(expectedTax, tax);
     }
-
 }
-

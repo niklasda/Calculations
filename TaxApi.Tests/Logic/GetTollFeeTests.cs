@@ -57,9 +57,8 @@ public class GetTollFeeTests
     [DataRow("2013-03-26T14:25:00", 0)]  // Tue
     [DataRow("2013-03-28T14:07:27", 0)]  // Thu (Holiday)
     [DataRow("2013-07-26T14:07:27", 0)]  // Fri (July)
-    public void TestSingleDateMotorbikeFee(string dateString, int expectedFee)
+    public void TestSingleDateMotorbikeFeeZero(string dateString, int expectedFee)
     {
-
         var ctc = new TaxCalculator();
 
         if (DateTime.TryParse(dateString, out var date))

@@ -32,6 +32,7 @@ public class TaxCalculator
 
                 if (nextFee >= tempFee) 
                     tempFee = nextFee;
+
                 totalFee += tempFee;
             }
             else
@@ -47,7 +48,8 @@ public class TaxCalculator
 
     private bool IsTollFreeVehicle(IVehicle? vehicle)
     {
-        if (vehicle == null) return false;
+        if (vehicle == null) 
+            return false;
         string vehicleType = vehicle.GetVehicleType();
         return vehicleType.Equals(TollFreeVehicles.Motorbike.ToString()) ||
                vehicleType.Equals(TollFreeVehicles.Tractor.ToString()) ||

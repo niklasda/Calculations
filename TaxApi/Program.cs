@@ -18,13 +18,14 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseHttpLogging();
 
-app.MapPost("/tax", (TaxCalculator ctc, VehicleFactory f, [FromBody] TollingData data) =>
+app.MapPost("/tax", (TaxCalculator calculator, VehicleFactory factory, [FromBody] TollingData data) =>
 {
-    IVehicle? vehicle = f.CreateFromTypeString(data.VehicleType);
+    IVehicle? vehicle = factory.CreateFromTypeString(data.VehicleType);
+    if (vehicle == null || !data.TimeStamps.Any())
+        return Results.BadRequest();
 
-    var tax = ctc.GetTax(vehicle, data.TimeStamps);
-    return tax;
-   
+    var tax = calculator.GetTax(vehicle, data.TimeStamps);
+    return Results.Ok(tax);
 });
 
 app.Run();
